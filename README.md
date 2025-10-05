@@ -20,7 +20,9 @@ I'm a noob as a matter of fact and just able to use them for a little 😭:
 
 ## 🚀 Projects
 
-I don't have any inspiring projects 😭, here is one I made lots of efforts:
+I don't have any inspiring projects of my own 😭,
+but here is one that I made efforts
+(the core algorithm was written by my friend, 'cause I'm too weak to learn difficult things):
 - Chess98 https://github.com/StarlightChessOrg/Chess98
 
 ## 📫 Connect
