@@ -8,11 +8,9 @@ And I strive to write clean, maintainable code though large mountains of shit ar
 
 And I'm currently busy schooling and dealing with my homework as well as preparations for the exam. Thus I seldom have spare time on coding 😭
 
-By the way, a Chinese Chess AI project called Chess98 https://github.com/StarlightChessOrg/Chess98 is now developing by my friend and me. If you are interested in that, welcome to have a look 😆
-
 ## 🛠️ Tech Stack
 
-I'm a noob as a matter of fact and just able to use them for a little 😭:
+Some abilities 😭:
 
 - Languages: JS, Lua, C++, Python, ...
 - Development Preferences: Web, AI, Cross-Platform, ...
@@ -20,10 +18,9 @@ I'm a noob as a matter of fact and just able to use them for a little 😭:
 
 ## 🚀 Projects
 
-I don't have any inspiring projects of my own 😭,
-but here is one that I made efforts
-(the core algorithm was written by my friend, 'cause I'm too weak to learn difficult things):
-- Chess98 https://github.com/StarlightChessOrg/Chess98
+Here are some projects of mine ❄️:
+
+- Chess98: A powerful Chinese Chess AI.
 
 ## 📫 Connect
 
