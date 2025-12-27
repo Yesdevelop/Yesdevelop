@@ -16,7 +16,7 @@ Something I like:
 
 ## 🚀 Projects
 
-Some Projects of mine:
+Some projects of mine:
 
 - Chess98 ❄️: A powerful Chinese Chess AI.
 
