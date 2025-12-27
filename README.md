@@ -4,13 +4,11 @@ Welcome to my overview 👋
 
 I'm a senior high school student living in China.
 I have a little experience in C++ and web development.
-And I strive to write clean, maintainable code though large mountains of shit are always produced underneath my fingerpoints 😂
-
-And I'm currently busy schooling and dealing with my homework as well as preparations for the exam. Thus I seldom have spare time on coding 😭
+And a Chinese Chess AI project called [Chess98](https://github.com/StarlightChessOrg/Chess98) is now developing by my friend and I. If you are interested in that welcome to have a look.
 
 ## 🛠️ Tech Stack
 
-Some abilities 😭:
+Something I like:
 
 - Languages: JS, Lua, C++, Python, ...
 - Development Preferences: Web, AI, Cross-Platform, ...
@@ -18,28 +16,24 @@ Some abilities 😭:
 
 ## 🚀 Projects
 
-Here are some projects of mine ❄️:
+Some Projects of mine:
 
-- Chess98: A powerful Chinese Chess AI.
+- Chess98 ❄️: A powerful Chinese Chess AI.
 
 ## 📫 Connect
 
-You can connect me through them 👋:
+You can connect me through them:
 
 - GitHub: @yesdevelop
 - Email: yes-noob@outlook.com
 - Xiangqi.com: @Yes-Noob
-- QQ (Seems Chinese-only): 2820795095
+- QQ: 2820795095
 
 ## ❤️ My Friends
 
 Here are my friends, I have deep communication with them:
 
-- 小鸟巡航大佬 https://github.com/HeliumAreFlying
-- 清圆大佬 https://github.com/imitoy
-- 清芜大佬 https://github.com/uplanfor
-- 梦辰大佬 https://github.com/TatsukiMengChen
-
---------
-
-Thank you ✌️
+- HeliumAreFlying https://github.com/HeliumAreFlying
+- Imitoy https://github.com/imitoy
+- UPlanFor https://github.com/uplanfor
+- Mengchen https://github.com/TatsukiMengChen
