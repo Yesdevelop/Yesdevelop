@@ -40,7 +40,7 @@ model = nn.Sequential(
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-for epoch in range(100):
+for epoch in range(10):
     for images, labels in train_loader:
         optimizer.zero_grad()
         outputs = model(images)

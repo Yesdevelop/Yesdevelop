@@ -2,8 +2,8 @@
   "initialized": true,
   "cash": {
     "CNY": 150.0,
-    "HKD": 16.320000000000164,
-    "USD": 479.99996699999997
+    "HKD": 200.24000000000024,
+    "USD": 0.9999669999999696
   },
   "holdings": [
     {
@@ -99,8 +99,8 @@
       "symbol": "PEP",
       "name": "百事可乐",
       "market": "US",
-      "buy_price": 137.73,
-      "shares": 0.87127
+      "buy_price": 138.3090754802077,
+      "shares": 2.161825
     },
     {
       "id": 13,
@@ -120,14 +120,6 @@
     },
     {
       "id": 15,
-      "symbol": "01810",
-      "name": "小米集团－Ｗ",
-      "market": "HK",
-      "buy_price": 26.88,
-      "shares": 111.0
-    },
-    {
-      "id": 16,
       "symbol": "300059",
       "name": "东方财富",
       "market": "CN",
@@ -135,7 +127,7 @@
       "shares": 100.0
     },
     {
-      "id": 17,
+      "id": 16,
       "symbol": "601988",
       "name": "中国银行",
       "market": "CN",
@@ -143,12 +135,44 @@
       "shares": 300.0
     },
     {
-      "id": 18,
+      "id": 17,
       "symbol": "000001",
       "name": "平安银行",
       "market": "CN",
       "buy_price": 11.21,
       "shares": 100.0
+    },
+    {
+      "id": 18,
+      "symbol": "00941",
+      "name": "中国移动",
+      "market": "HK",
+      "buy_price": 81.8,
+      "shares": 20.0
+    },
+    {
+      "id": 19,
+      "symbol": "01299",
+      "name": "友邦保险",
+      "market": "HK",
+      "buy_price": 72.65,
+      "shares": 8.0
+    },
+    {
+      "id": 20,
+      "symbol": "VOO",
+      "name": "Vanguard标普500指数ETF",
+      "market": "US",
+      "buy_price": 710.17,
+      "shares": 0.422434
+    },
+    {
+      "id": 21,
+      "symbol": "01810",
+      "name": "小米集团－Ｗ",
+      "market": "HK",
+      "buy_price": 29.02,
+      "shares": 18.0
     }
   ]
 }
