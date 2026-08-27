@@ -19,7 +19,7 @@
       --chip-on: #2a241c;
       --chip-on-ink: #faf7f0;
       --mark: #f0d48a;
-      --sel: #e8c27a;
+      --sel: #d8b56a;
       --sel-ink: #2a241c;
       --shadow: 0 1px 0 #0000000d;
       --serif: "Iowan Old Style", "Palatino Linotype", "Songti SC", "Source Han Serif SC", "Noto Serif SC", "STSong", serif;
@@ -41,32 +41,32 @@
         --chip-on: #e8e0d4;
         --chip-on-ink: #1b1814;
         --mark: #6b5420;
-        --sel: #8a6430;
-        --sel-ink: #f3ead8;
+        --sel: #6e4a38;
+        --sel-ink: #f4ebe0;
         --shadow: none;
       }
     }
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
-    html, body, .list, .article {
+    * {
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar,
-    .list::-webkit-scrollbar,
-    .article::-webkit-scrollbar {
+    *::-webkit-scrollbar {
       width: 0;
       height: 0;
       display: none;
+      background: transparent;
     }
-    ::selection {
-      background: var(--sel);
+    ::selection,
+    *::selection {
+      background-color: var(--sel);
       color: var(--sel-ink);
     }
-    ::-moz-selection {
-      background: var(--sel);
+    ::-moz-selection,
+    *::-moz-selection {
+      background-color: var(--sel);
       color: var(--sel-ink);
     }
     body {
