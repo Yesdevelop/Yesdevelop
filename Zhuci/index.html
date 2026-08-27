@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f3efe6">
+  <title>朱慈</title>
+  <style>
+    :root {
+      --bg: #f3efe6;
+      --paper: #faf7f0;
+      --sidebar: #ebe4d6;
+      --ink: #2a241c;
+      --muted: #7a7166;
+      --faint: #a3988a;
+      --line: #d9d0bf;
+      --accent: #8b3a2a;
+      --chip: #e4dccb;
+      --chip-on: #2a241c;
+      --chip-on-ink: #faf7f0;
+      --mark: #f0d48a;
+      --sel: #e8c27a;
+      --sel-ink: #2a241c;
+      --shadow: 0 1px 0 #0000000d;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Songti SC", "Source Han Serif SC", "Noto Serif SC", "STSong", serif;
+      --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --sidebar-w: 22rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14120f;
+        --paper: #1b1814;
+        --sidebar: #171410;
+        --ink: #e8e0d4;
+        --muted: #9a9084;
+        --faint: #6e665c;
+        --line: #3a342c;
+        --accent: #d0896c;
+        --chip: #2a251f;
+        --chip-on: #e8e0d4;
+        --chip-on-ink: #1b1814;
+        --mark: #6b5420;
+        --sel: #8a6430;
+        --sel-ink: #f3ead8;
+        --shadow: none;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html, body, .list, .article {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .list::-webkit-scrollbar,
+    .article::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+    ::selection {
+      background: var(--sel);
+      color: var(--sel-ink);
+    }
+    ::-moz-selection {
+      background: var(--sel);
+      color: var(--sel-ink);
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      height: 100%;
+    }
+
+    .rail {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: var(--sidebar);
+      border-right: 1px solid var(--line);
+    }
+
+    .brand {
+      padding: 1.25rem 1.15rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+    .brand p {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .tools {
+      padding: 0.85rem 1.15rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .search-wrap { position: relative; }
+    #search {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 0.55rem 2rem 0.55rem 0.7rem;
+      font: inherit;
+      outline: none;
+    }
+    #search:focus { border-color: var(--accent); }
+    .search-wrap kbd {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--faint);
+      font-size: 0.7rem;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 0 0.28rem;
+      pointer-events: none;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.18rem 0.62rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .chip[aria-pressed="true"] {
+      background: var(--chip-on);
+      color: var(--chip-on-ink);
+      border-color: var(--chip-on);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    select {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 4px;
+      padding: 0.15rem 0.3rem;
+      font: inherit;
+      font-size: 0.75rem;
+    }
+
+    .list {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 0.25rem 0 1.5rem;
+    }
+    .item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      color: inherit;
+      padding: 0.75rem 1.15rem;
+      cursor: pointer;
+      font: inherit;
+    }
+    .item:hover { background: color-mix(in srgb, var(--paper) 70%, transparent); }
+    .item.is-on { background: var(--paper); box-shadow: inset 3px 0 0 var(--accent); }
+    .item-type {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+    .item-meta {
+      margin-top: 0.28rem;
+      color: var(--faint);
+      font-size: 0.72rem;
+    }
+    .item-snip {
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    mark {
+      background: var(--mark);
+      color: inherit;
+      padding: 0 0.08em;
+    }
+    .empty {
+      padding: 1.5rem 1.15rem;
+      color: var(--muted);
+    }
+
+    .stage {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--paper);
+    }
+    .stage-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .stage-bar button, .icon-btn {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      font: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .stage-bar .grow { flex: 1; }
+    .back-btn { display: none; }
+
+    .article {
+      flex: 1;
+      overflow: auto;
+      padding: 2.2rem 0 4rem;
+    }
+    .article-inner {
+      width: min(42rem, calc(100% - 2.4rem));
+      margin: 0 auto;
+    }
+    .placeholder {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: var(--faint);
+      font-family: var(--serif);
+      letter-spacing: 0.08em;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.6rem;
+    }
+    .article h1 {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin: 0 0 0.7rem;
+    }
+    .byline {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 1.6rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .article h2 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      margin: 1.8rem 0 0.7rem;
+    }
+    .article p {
+      font-family: var(--serif);
+      font-size: calc(1.05rem * var(--fs, 1));
+      line-height: 1.85;
+      margin: 0 0 0.95rem;
+    }
+    .article blockquote {
+      margin: 0 0 1.2rem;
+      padding: 0.2rem 0 0.2rem 1rem;
+      border-left: 2px solid var(--accent);
+      color: var(--muted);
+    }
+    .article blockquote p,
+    .article blockquote {
+      font-family: var(--serif);
+      line-height: 1.75;
+    }
+    .article img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 1.2rem auto;
+      border-radius: 2px;
+    }
+    .article hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 1.6rem 0;
+    }
+    .article a { color: var(--accent); }
+
+    .pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .pager button {
+      flex: 1;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 0.7rem 0.8rem;
+      font: inherit;
+      cursor: pointer;
+    }
+    .pager button:last-child { text-align: right; }
+    .pager button:disabled { opacity: 0.4; cursor: default; }
+    .pager small { display: block; color: var(--faint); font-size: 0.72rem; margin-bottom: 0.2rem; }
+
+    @media (max-width: 860px) {
+      .app { grid-template-columns: 1fr; }
+      .rail { display: none; }
+      .app.show-list .rail { display: flex; }
+      .app.show-list .stage { display: none; }
+      .back-btn { display: inline-block; }
+      .article { padding-top: 1.4rem; }
+      .brand h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app show-list" id="app">
+    <aside class="rail">
+      <header class="brand">
+        <h1>朱慈</h1>
+        <p>精神病纪录片进度 99.981%</p>
+      </header>
+      <div class="tools">
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="搜索标题或正文" autocomplete="off">
+          <kbd>/</kbd>
+        </div>
+        <div class="chips" id="types"></div>
+        <div class="chips" id="years"></div>
+        <div class="meta-row">
+          <span id="count"></span>
+          <label>排序
+            <select id="sort">
+              <option value="id">收录顺序</option>
+              <option value="new">从晚到早</option>
+              <option value="old">从早到晚</option>
+              <option value="votes">赞数</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <main class="stage">
+      <div class="stage-bar">
+        <button class="back-btn" id="back" type="button">目录</button>
+        <span class="grow" id="pos"></span>
+        <button type="button" id="smaller" title="缩小">A-</button>
+        <button type="button" id="bigger" title="放大">A+</button>
+      </div>
+      <article class="article" id="article">
+        <div class="placeholder">从左侧选一篇，或搜索关键词</div>
+      </article>
+    </main>
+  </div>
+  <script src="catalog.js"></script>
+  <script>
+    const catalog = window.ZHUCI_CATALOG || []
+    const $ = (id) => document.getElementById(id)
+    const app = $("app")
+    const store = {
+      get(k, d) {
+        try { const v = localStorage.getItem("zhuci:" + k); return v == null ? d : JSON.parse(v) } catch { return d }
+      },
+      set(k, v) { localStorage.setItem("zhuci:" + k, JSON.stringify(v)) }
+    }
+
+    const state = {
+      q: "",
+      type: "全部",
+      year: "全部",
+      sort: store.get("sort", "id"),
+      id: null,
+      fs: store.get("fs", 1)
+    }
+    $("sort").value = state.sort
+    document.documentElement.style.setProperty("--fs", state.fs)
+
+    catalog.forEach((item) => {
+      item.search = (item.title + "\n" + item.md).toLowerCase()
+    })
+
+    const years = [...new Set(catalog.map((x) => x.year))].sort()
+    const types = ["全部", "回答", "文章", "想法"]
+
+    const esc = (s) => String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+
+    const tokens = () => state.q.toLowerCase().split(/\s+/).filter(Boolean)
+
+    const match = (item, toks) => toks.every((t) => item.search.includes(t))
+
+    const filtered = () => {
+      const toks = tokens()
+      let rows = catalog.filter((item) => {
+        if (state.type !== "全部" && item.type !== state.type) return false
+        if (state.year !== "全部" && item.year !== state.year) return false
+        return !toks.length || match(item, toks)
+      })
+      const dateKey = (x) => x.date || "0000"
+      if (state.sort === "new") rows = [...rows].sort((a, b) => dateKey(b).localeCompare(dateKey(a)) || b.id.localeCompare(a.id))
+      else if (state.sort === "old") rows = [...rows].sort((a, b) => dateKey(a).localeCompare(dateKey(b)) || a.id.localeCompare(b.id))
+      else if (state.sort === "votes") rows = [...rows].sort((a, b) => (b.votes || 0) - (a.votes || 0))
+      return rows
+    }
+
+    const highlight = (text, toks) => {
+      let html = esc(text)
+      for (const t of toks) {
+        if (!t) continue
+        const re = new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi")
+        html = html.replace(re, (m) => `<mark>${m}</mark>`)
+      }
+      return html
+    }
+
+    const snippet = (item, toks) => {
+      if (!toks.length) return ""
+      const src = item.md.replace(/^# .+\n+/, "").replace(/[#>*_[\]()]/g, "")
+      const lower = src.toLowerCase()
+      let idx = -1
+      let hit = toks[0]
+      for (const t of toks) {
+        const i = lower.indexOf(t)
+        if (i >= 0) { idx = i; hit = t; break }
+      }
+      if (idx < 0) return ""
+      const start = Math.max(0, idx - 18)
+      const chunk = (start ? "…" : "") + src.slice(start, start + 72).replace(/\s+/g, " ") + "…"
+      return highlight(chunk, toks)
+    }
+
+    const renderChips = (el, values, current, onPick) => {
+      el.innerHTML = values.map((v) =>
+        `<button type="button" class="chip" aria-pressed="${v === current}">${esc(v)}</button>`
+      ).join("")
+      el.querySelectorAll(".chip").forEach((btn, i) => {
+        btn.addEventListener("click", () => onPick(values[i]))
+      })
+    }
+
+    const renderList = () => {
+      const rows = filtered()
+      $("count").textContent = `${rows.length} 篇`
+      if (!rows.length) {
+        $("list").innerHTML = `<div class="empty">没有找到${state.q ? `「${esc(state.q)}」` : "符合条件的篇目"}</div>`
+        return
+      }
+      const toks = tokens()
+      $("list").innerHTML = rows.map((item) => {
+        const votes = item.votes != null ? ` · ${item.votes} 赞` : ""
+        const when = item.date || "日期未知"
+        const snip = snippet(item, toks)
+        return `<button type="button" class="item${item.id === state.id ? " is-on" : ""}" data-id="${item.id}">
+          <div class="item-type">${esc(item.type)}</div>
+          <div class="item-title">${highlight(item.title, toks)}</div>
+          <div class="item-meta">${esc(when)}${votes}</div>
+          ${snip ? `<div class="item-snip">${snip}</div>` : ""}
+        </button>`
+      }).join("")
+    }
+
+    const inline = (s) => {
+      let html = esc(s)
+      html = html.replace(/!\[(.*?)\]\((.*?)\)/g, (_, alt, src) => {
+        src = src.replace(/^\.\.\//, "")
+        return `<img src="${src}" alt="${esc(alt)}">`
+      })
+      html = html.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      return html
+    }
+
+    const renderMd = (md, title) => {
+      const lines = md.replace(/\r\n/g, "\n").split("\n")
+      const out = []
+      let quote = []
+      let skippedTitle = false
+      const flush = () => {
+        if (!quote.length) return
+        const body = quote.filter((x) => x !== "").map(inline).join("<br>")
+        out.push(`<blockquote>${body}</blockquote>`)
+        quote = []
+      }
+      for (const line of lines) {
+        if (line.startsWith(">")) {
+          quote.push(line.replace(/^>\s?/, ""))
+          continue
+        }
+        flush()
+        if (!line.trim()) continue
+        if (line.startsWith("# ")) {
+          if (!skippedTitle && line.slice(2).trim() === title) {
+            skippedTitle = true
+            continue
+          }
+          out.push(`<h1>${inline(line.slice(2))}</h1>`)
+        } else if (line.startsWith("## ")) {
+          out.push(`<h2>${inline(line.slice(3))}</h2>`)
+        } else if (/^[-—*\/]{1,3}$/.test(line.trim()) || line.trim() === "——") {
+          out.push("<hr>")
+        } else {
+          out.push(`<p>${inline(line)}</p>`)
+        }
+      }
+      flush()
+      return out.join("")
+    }
+
+    const formatVotes = (n) => {
+      if (n == null) return ""
+      if (n >= 10000) return ` · ${(n / 10000).toFixed(n % 10000 ? 1 : 0)} 万赞`
+      return ` · ${n} 赞`
+    }
+
+    const open = (id, push = true) => {
+      const item = catalog.find((x) => x.id === id)
+      if (!item) return
+      state.id = id
+      store.set("last", id)
+      if (push) {
+        const next = "#/" + id
+        if (location.hash !== next) history.pushState({ id }, "", next)
+      }
+      app.classList.remove("show-list")
+      const rows = filtered()
+      const idx = rows.findIndex((x) => x.id === id)
+      const prev = idx > 0 ? rows[idx - 1] : null
+      const nextItem = idx >= 0 && idx < rows.length - 1 ? rows[idx + 1] : null
+      $("pos").textContent = idx >= 0 ? `${idx + 1} / ${rows.length}` : item.type
+      $("article").innerHTML = `
+        <div class="article-inner">
+          <div class="kicker">${esc(item.type)}</div>
+          <h1>${esc(item.title)}</h1>
+          <div class="byline">朱慈${item.date ? " · " + esc(item.date) : ""}${formatVotes(item.votes)}</div>
+          ${renderMd(item.md, item.title)}
+          <div class="pager">
+            <button type="button" id="prev" ${prev ? "" : "disabled"}>
+              <small>上一篇</small>${prev ? esc(prev.title) : "没有了"}
+            </button>
+            <button type="button" id="next" ${nextItem ? "" : "disabled"}>
+              <small>下一篇</small>${nextItem ? esc(nextItem.title) : "没有了"}
+            </button>
+          </div>
+        </div>`
+      $("prev").onclick = () => prev && open(prev.id)
+      $("next").onclick = () => nextItem && open(nextItem.id)
+      $("article").scrollTop = 0
+      renderList()
+      const on = document.querySelector(`.item[data-id="${id}"]`)
+      if (on) on.scrollIntoView({ block: "nearest" })
+      document.title = item.title + " · 朱慈"
+    }
+
+    const showList = () => {
+      app.classList.add("show-list")
+      document.title = "朱慈"
+    }
+
+    const bindFilters = () => {
+      renderChips($("types"), types, state.type, (v) => { state.type = v; bindFilters(); renderList() })
+      renderChips($("years"), ["全部", ...years], state.year, (v) => { state.year = v; bindFilters(); renderList() })
+    }
+    bindFilters()
+    renderList()
+
+    $("list").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-id]")
+      if (btn) open(btn.dataset.id)
+    })
+    $("search").addEventListener("input", (e) => {
+      state.q = e.target.value.trim()
+      renderList()
+    })
+    $("sort").addEventListener("change", (e) => {
+      state.sort = e.target.value
+      store.set("sort", state.sort)
+      renderList()
+    })
+    $("back").onclick = showList
+    $("smaller").onclick = () => {
+      state.fs = Math.max(0.85, +(state.fs - 0.08).toFixed(2))
+      store.set("fs", state.fs)
+      document.documentElement.style.setProperty("--fs", state.fs)
+    }
+    $("bigger").onclick = () => {
+      state.fs = Math.min(1.4, +(state.fs + 0.08).toFixed(2))
+      store.set("fs", state.fs)
+      document.documentElement.style.setProperty("--fs", state.fs)
+    }
+
+    const fromHash = () => {
+      const id = decodeURIComponent(location.hash.replace(/^#\/?/, "")).split("/")[0]
+      if (id && catalog.some((x) => x.id === id)) {
+        open(id, false)
+        return
+      }
+      const last = store.get("last")
+      if (last && catalog.some((x) => x.id === last)) open(last, false)
+      showList()
+    }
+    window.addEventListener("popstate", fromHash)
+    fromHash()
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "/" && document.activeElement !== $("search")) {
+        e.preventDefault()
+        $("search").focus()
+        $("search").select()
+      }
+      if (e.key === "Escape") {
+        if (state.q) { state.q = ""; $("search").value = ""; renderList(); return }
+        if (!app.classList.contains("show-list")) showList()
+      }
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return
+      if (e.key === "j" || e.key === "n") $("next")?.click()
+      if (e.key === "k" || e.key === "p") $("prev")?.click()
+    })
+  </script>
+</body>
+</html>
